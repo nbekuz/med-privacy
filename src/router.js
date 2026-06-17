@@ -5,6 +5,8 @@ import HelpPage from './views/HelpPage.vue'
 import ContactPage from './views/ContactPage.vue'
 import TermsPage from './views/TermsPage.vue'
 import PaymentSuccessPage from './views/PaymentSuccessPage.vue'
+import PaymentFailPage from './views/PaymentFailPage.vue'
+import PaymentResultPage from './views/PaymentResultPage.vue'
 import NotFoundPage from './views/NotFoundPage.vue'
 
 const routes = [
@@ -18,6 +20,9 @@ const routes = [
     name: 'billing-success',
     component: PaymentSuccessPage,
   },
+  { path: '/payment/success', name: 'payment-success', component: PaymentSuccessPage },
+  { path: '/payment/fail', name: 'payment-fail', component: PaymentFailPage },
+  { path: '/payment/result', name: 'payment-result', component: PaymentResultPage },
   {
     path: '/api/billing/robokassa/success/',
     name: 'robokassa-success',
