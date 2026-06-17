@@ -8,6 +8,7 @@ import PaymentSuccessPage from './views/PaymentSuccessPage.vue'
 import PaymentFailPage from './views/PaymentFailPage.vue'
 import PaymentResultPage from './views/PaymentResultPage.vue'
 import NotFoundPage from './views/NotFoundPage.vue'
+import ServerErrorPage from './views/ServerErrorPage.vue'
 
 const routes = [
   { path: '/', name: 'landing', component: LandingPage },
@@ -23,6 +24,8 @@ const routes = [
   { path: '/payment/success', name: 'payment-success', component: PaymentSuccessPage },
   { path: '/payment/fail', name: 'payment-fail', component: PaymentFailPage },
   { path: '/payment/result', name: 'payment-result', component: PaymentResultPage },
+  { path: '/404', name: 'error-404', component: NotFoundPage },
+  { path: '/500', name: 'error-500', component: ServerErrorPage },
   {
     path: '/api/billing/robokassa/success/',
     name: 'robokassa-success',
