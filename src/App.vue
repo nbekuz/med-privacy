@@ -1,16 +1,119 @@
+<script setup>
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+
+const mobileOpen = ref(false)
+const route = useRoute()
+
+const navLinks = [
+  { to: '/', label: 'Главная', exact: true },
+  { to: '/privacy', label: 'Конфиденциальность' },
+  { to: '/help', label: 'Помощь' },
+  { to: '/contact', label: 'Контакты' },
+  { to: '/terms', label: 'Условия' },
+]
+
+const linkClass =
+  'rounded-lg px-3.5 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900'
+
+function closeMobile() {
+  mobileOpen.value = false
+}
+
+watch(
+  () => route.path,
+  () => {
+    mobileOpen.value = false
+  },
+)
+</script>
+
 <template>
   <div class="flex min-h-screen flex-col bg-slate-50 text-slate-800">
-    <header class="border-b border-slate-200 bg-white">
-      <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-4">
-        <RouterLink to="/" class="text-lg font-semibold text-slate-900">Medical Privacy</RouterLink>
-        <nav class="flex flex-wrap items-center gap-3 text-sm">
-          <RouterLink to="/" class="rounded-md px-3 py-2 hover:bg-slate-100">Главная</RouterLink>
-          <RouterLink to="/privacy" class="rounded-md px-3 py-2 hover:bg-slate-100">Конфиденциальность</RouterLink>
-          <RouterLink to="/help" class="rounded-md px-3 py-2 hover:bg-slate-100">Помощь</RouterLink>
-          <RouterLink to="/contact" class="rounded-md px-3 py-2 hover:bg-slate-100">Контакты</RouterLink>
-          <RouterLink to="/terms" class="rounded-md px-3 py-2 hover:bg-slate-100">Условия</RouterLink>
+    <header
+      class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur supports-backdrop-filter:bg-white/80"
+    >
+      <div class="mx-auto flex h-16 max-w-5xl items-center justify-between gap-6 px-4 sm:px-6">
+        <RouterLink
+          to="/"
+          class="shrink-0 text-lg font-bold tracking-tight text-slate-900 transition-colors hover:text-teal-700"
+          @click="closeMobile"
+        >
+          Medical Privacy
+        </RouterLink>
+
+        <nav class="hidden items-center gap-1 md:flex" aria-label="Основная навигация">
+          <RouterLink
+            v-for="link in navLinks"
+            :key="link.to"
+            :to="link.to"
+            :class="linkClass"
+            :exact-active-class="
+              link.exact
+                ? 'bg-teal-50 text-teal-700 hover:bg-teal-50 hover:text-teal-700'
+                : undefined
+            "
+            active-class="bg-teal-50 text-teal-700 hover:bg-teal-50 hover:text-teal-700"
+          >
+            {{ link.label }}
+          </RouterLink>
         </nav>
+
+        <button
+          type="button"
+          class="inline-flex items-center justify-center rounded-lg p-2 text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 md:hidden"
+          :aria-expanded="mobileOpen"
+          aria-controls="mobile-nav"
+          aria-label="Открыть меню"
+          @click="mobileOpen = !mobileOpen"
+        >
+          <svg
+            v-if="!mobileOpen"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg
+            v-else
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
       </div>
+
+      <nav
+        v-show="mobileOpen"
+        id="mobile-nav"
+        class="border-t border-slate-100 bg-white px-4 py-3 md:hidden"
+        aria-label="Мобильная навигация"
+      >
+        <RouterLink
+          v-for="link in navLinks"
+          :key="link.to"
+          :to="link.to"
+          :class="[linkClass, 'block']"
+          :exact-active-class="
+            link.exact
+              ? 'bg-teal-50 text-teal-700 hover:bg-teal-50 hover:text-teal-700'
+              : undefined
+          "
+          active-class="bg-teal-50 text-teal-700 hover:bg-teal-50 hover:text-teal-700"
+          @click="closeMobile"
+        >
+          {{ link.label }}
+        </RouterLink>
+      </nav>
     </header>
 
     <main class="mx-auto w-full max-w-5xl flex-1 px-4 py-8">
