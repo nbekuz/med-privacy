@@ -1,9 +1,11 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const fallbackReturnUrl = 'medicalai://billing/success'
+const toastVisible = ref(false)
+const toastMessage = ref('')
+let toastTimer
 
 const amount = computed(() => {
   const sum = route.query.OutSum
@@ -23,19 +25,39 @@ const orderId = computed(() => {
   return id ? String(id) : null
 })
 
-const returnToAppUrl = computed(() => {
-  const configured = import.meta.env.VITE_RETURN_TO_APP_URL
-  const baseUrl = configured && configured.trim() ? configured : fallbackReturnUrl
-  const query = new URLSearchParams({
-    outSum: String(route.query.OutSum || ''),
-    invId: String(route.query.InvId || ''),
-    isTest: String(route.query.IsTest || ''),
-  }).toString()
-  return query ? `${baseUrl}?${query}` : baseUrl
-})
+function detectPlatform() {
+  const ua = navigator.userAgent || ''
+  if (/iPad|iPhone|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+    return 'ios'
+  }
+  if (/Android/i.test(ua)) {
+    return 'android'
+  }
+  return 'other'
+}
+
+function getUnavailableMessage() {
+  const platform = detectPlatform()
+  if (platform === 'ios') {
+    return 'Приложение пока недоступно в App Store. Скоро появится в магазине.'
+  }
+  if (platform === 'android') {
+    return 'Приложение пока недоступно в Google Play. Скоро появится в магазине.'
+  }
+  return 'Приложение пока недоступно. Скоро появится в Google Play и App Store.'
+}
+
+function showToast(message) {
+  toastMessage.value = message
+  toastVisible.value = true
+  clearTimeout(toastTimer)
+  toastTimer = setTimeout(() => {
+    toastVisible.value = false
+  }, 4500)
+}
 
 function goToApp() {
-  window.location.href = returnToAppUrl.value
+  showToast(getUnavailableMessage())
 }
 </script>
 
@@ -81,4 +103,22 @@ function goToApp() {
       Вернуться в приложение
     </button>
   </section>
+
+  <Transition
+    enter-active-class="transition duration-300 ease-out"
+    enter-from-class="translate-y-4 opacity-0"
+    enter-to-class="translate-y-0 opacity-100"
+    leave-active-class="transition duration-200 ease-in"
+    leave-from-class="translate-y-0 opacity-100"
+    leave-to-class="translate-y-4 opacity-0"
+  >
+    <div
+      v-if="toastVisible"
+      role="status"
+      aria-live="polite"
+      class="fixed inset-x-4 bottom-6 z-100 mx-auto max-w-md rounded-xl border border-slate-200 bg-slate-900 px-4 py-3 text-center text-sm leading-relaxed text-white shadow-lg"
+    >
+      {{ toastMessage }}
+    </div>
+  </Transition>
 </template>

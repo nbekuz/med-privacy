@@ -26,12 +26,16 @@ watch(
     mobileOpen.value = false
   },
 )
+
+watch(mobileOpen, (open) => {
+  document.body.style.overflow = open ? 'hidden' : ''
+})
 </script>
 
 <template>
   <div class="flex min-h-screen flex-col bg-slate-50 text-slate-800">
     <header
-      class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur supports-backdrop-filter:bg-white/80"
+      class="relative sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur supports-backdrop-filter:bg-white/80"
     >
       <div class="mx-auto flex h-16 max-w-5xl items-center justify-between gap-6 px-4 sm:px-6">
         <RouterLink
@@ -92,10 +96,17 @@ watch(
         </button>
       </div>
 
+      <div
+        v-show="mobileOpen"
+        class="fixed inset-0 top-16 z-40 bg-black/20 md:hidden"
+        aria-hidden="true"
+        @click="closeMobile"
+      />
+
       <nav
         v-show="mobileOpen"
         id="mobile-nav"
-        class="border-t border-slate-100 bg-white px-4 py-3 md:hidden"
+        class="absolute left-0 right-0 top-full z-50 border-b border-slate-200 bg-white px-4 py-3 shadow-lg md:hidden"
         aria-label="Мобильная навигация"
       >
         <RouterLink
