@@ -1,14 +1,7 @@
 <script setup>
-const contacts = [
-  {
-    role: 'Поддержка и вопросы по данным',
-    email: 'support@medicalai.uz',
-  },
-  {
-    role: 'Психологическая поддержка',
-    email: 'psychology@medic-ai.ru',
-  },
-]
+const email = 'neuroexpert@bk.ru'
+const phone = '+79220305777'
+const phoneDisplay = '+7 (922) 030-57-77'
 
 const sections = [
   {
@@ -101,49 +94,47 @@ const sections = [
     <section class="rounded-2xl border border-teal-200 bg-teal-50/60 p-6 shadow-sm sm:p-8">
       <h2 class="text-lg font-semibold text-slate-900">Контакты для связи</h2>
       <p class="mt-2 text-sm leading-relaxed text-slate-700">
-        По вопросам конфиденциальности, удаления данных, поддержки и обратной связи напишите нам
-        на Gmail / email. Обычно отвечаем в рабочие дни.
+        По вопросам конфиденциальности, удаления данных, поддержки и обратной связи свяжитесь с
+        нами. Обычно отвечаем в рабочие дни.
       </p>
 
       <ul class="mt-5 space-y-3">
         <li
-          v-for="contact in contacts"
-          :key="contact.email"
           class="flex flex-col gap-1 rounded-xl border border-teal-100 bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
         >
           <div>
-            <p class="text-sm font-medium text-slate-900">{{ contact.role }}</p>
+            <p class="text-sm font-medium text-slate-900">Email</p>
             <a
-              :href="`mailto:${contact.email}`"
+              :href="`mailto:${email}`"
               class="mt-0.5 inline-flex items-center gap-2 text-sm font-semibold text-teal-700 underline-offset-2 hover:underline"
             >
-              <svg
-                class="h-4 w-4 shrink-0"
-                viewBox="0 0 24 24"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 17.5v-11Z"
-                  stroke="currentColor"
-                  stroke-width="1.6"
-                />
-                <path
-                  d="m5.5 7.5 6.5 5 6.5-5"
-                  stroke="currentColor"
-                  stroke-width="1.6"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-              {{ contact.email }}
+              {{ email }}
             </a>
           </div>
           <a
-            :href="`mailto:${contact.email}`"
+            :href="`mailto:${email}`"
             class="inline-flex w-fit items-center rounded-lg bg-teal-600 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-teal-700"
           >
             Написать
+          </a>
+        </li>
+        <li
+          class="flex flex-col gap-1 rounded-xl border border-teal-100 bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
+        >
+          <div>
+            <p class="text-sm font-medium text-slate-900">Телефон</p>
+            <a
+              :href="`tel:${phone}`"
+              class="mt-0.5 inline-flex text-sm font-semibold text-teal-700 underline-offset-2 hover:underline"
+            >
+              {{ phoneDisplay }}
+            </a>
+          </div>
+          <a
+            :href="`tel:${phone}`"
+            class="inline-flex w-fit items-center rounded-lg bg-teal-600 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-teal-700"
+          >
+            Позвонить
           </a>
         </li>
       </ul>
