@@ -1,10 +1,11 @@
 <template>
   <section class="space-y-8">
     <div class="rounded-2xl bg-gradient-to-r from-cyan-600 to-blue-700 p-8 text-white shadow-lg">
-      <p class="mb-3 inline-block rounded-full bg-white/20 px-3 py-1 text-xs tracking-wide">Medical AI App</p>
+      <p class="mb-3 inline-block rounded-full bg-white/20 px-3 py-1 text-xs tracking-wide">Medic AI App</p>
       <h1 class="mb-3 text-3xl font-bold md:text-4xl">Ваши медицинские данные под надежной защитой</h1>
       <p class="max-w-2xl text-sm md:text-base">
-        Приложение Medical AI обеспечивает защиту данных, безопасные платежи и быструю поддержку пользователей.
+        Приложение Medic AI обеспечивает защиту данных, безопасные платежи и быструю поддержку пользователей.
+        Разработчик: Ops Dev · neuroexpert@bk.ru · +7 (909) 025-55-09
       </p>
       <div class="mt-6 flex flex-wrap gap-3">
         <RouterLink

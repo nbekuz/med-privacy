@@ -1,14 +1,20 @@
 <script setup>
+const developerName = 'Ops Dev'
 const email = 'neuroexpert@bk.ru'
-const phone = '+79220305777'
-const phoneDisplay = '+7 (922) 030-57-77'
+const phone = '+79090255509'
+const phoneDisplay = '+7 (909) 025-55-09'
 </script>
 
 <template>
   <section class="space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
     <h1 class="text-2xl font-bold text-slate-900">Контакты</h1>
     <p class="text-sm leading-relaxed text-slate-700">
-      Если у вас есть вопросы или проблемы, свяжитесь с нами:
+      Контакты разработчика приложения Medic AI. Если у вас есть вопросы или проблемы, свяжитесь с
+      нами:
+    </p>
+
+    <p class="text-sm text-slate-800">
+      <strong>Разработчик:</strong> {{ developerName }}
     </p>
 
     <ul class="space-y-3">

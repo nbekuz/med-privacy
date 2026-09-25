@@ -133,7 +133,7 @@ watch(mobileOpen, (open) => {
 
     <footer class="border-t border-slate-200 bg-white">
       <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-5 text-sm text-slate-600">
-        <p>© {{ new Date().getFullYear() }} Medical AI</p>
+        <p>© {{ new Date().getFullYear() }} Medic AI · Ops Dev</p>
         <div class="flex gap-3">
           <RouterLink to="/privacy" class="hover:text-slate-900">Конфиденциальность</RouterLink>
           <RouterLink to="/terms" class="hover:text-slate-900">Условия</RouterLink>
